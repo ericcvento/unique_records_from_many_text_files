@@ -5,7 +5,7 @@ import shutil
 def main(): 
     
     #Make a copy to preserve original directory
-    olist=SearchForExtensionType("",".TXT") 
+    olist=SearchForExtensionType("inputdata",".TXT") 
     CopyTo(olist,"appdata/intermediate") 
     ilist=SearchForExtensionType("appdata/intermediate",".TXT")
 
@@ -51,6 +51,26 @@ def main():
                     m=l.strip()
                     writefile2.write('{}\n'.format(m))
 
+    #SORT OUT DUPLICATES AND WRITE TO THE BIG LIST
+    biglist=open('biglist.txt','w',encoding='utf-8')
+    slist2=SearchForExtensionType("appdata/splits",".TXT")
+    for sf in slist2:
+        print('removing duplicates from {}.'.format(sf))
+        uniquewords=set()
+        recordcount=0
+        with open(sf,'r') as infile:
+            for l in infile:
+                uniquewords.add(l)
+                recordcount=recordcount+1
+        print(recordcount)
+        print(len(uniquewords))
+        
+        print('writing words to file')
+        for w in uniquewords:
+            biglist.write('{}/n'.format(w))
+
+
+    biglist.close()
     return None
                              
 
