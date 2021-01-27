@@ -67,7 +67,7 @@ def main():
         
         print('writing words to file')
         for w in uniquewords:
-            biglist.write('{}/n'.format(w))
+            biglist.write('{}\n'.format(w))
 
 
     biglist.close()
